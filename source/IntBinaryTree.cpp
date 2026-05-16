@@ -6,7 +6,6 @@
 #include "IntBinaryTree.h"
 
 #include <iostream>
-using std::cout;
 
 //------------------------------------------------------------------------------
 // - accepts a TreeNode pointer and a pointer to a node.
@@ -14,94 +13,97 @@ using std::cout;
 // 
 // This function is called recursively.
 //------------------------------------------------------------------------------
-void IntBinaryTree::insert(TreeNode*& nodePtr, TreeNode*& newNode) {
+void IntBinaryTree::insert(TreeNode*& nodePtr, TreeNode*& newNode)
+{
+    if (nodePtr == nullptr)
+        nodePtr = newNode;                  // Insert the node.
 
-	if (nodePtr == nullptr)
-		nodePtr = newNode;                  // Insert the node.
+    else if (newNode->data < nodePtr->data)
+        insert(nodePtr->left, newNode);     // Search the left branch
 
-	else if (newNode->data < nodePtr->data)
-		insert(nodePtr->left, newNode);     // Search the left branch
-
-	else
-		insert(nodePtr->right, newNode);    // Search the right branch
+    else
+        insert(nodePtr->right, newNode);    // Search the right branch
 }
 
 //------------------------------------------------------------------------------
 // - creates a new node to hold num as its value,
 // - passes this new node to the insert function.
 //------------------------------------------------------------------------------
-void IntBinaryTree::insertNode(int num) {
-	TreeNode* newNode = nullptr;	// Pointer to a new node.
+void IntBinaryTree::insertNode(int num)
+{
+    TreeNode* newNode = nullptr;	// Pointer to a new node.
 
-	// Create a new node and store num in it.
-	newNode = new TreeNode;
-	newNode->data = num;
-	newNode->left = newNode->right = nullptr;
+    // Create a new node and store num in it.
+    newNode = new TreeNode;
+    newNode->data = num;
+    newNode->left = newNode->right = nullptr;
 
-	// Insert the node.
-	insert(root, newNode);
+    // Insert the node.
+    insert(root, newNode);
 }
 
 //------------------------------------------------------------------------------
 // - called by the destructor
 // - deletes all nodes in the tree
 //------------------------------------------------------------------------------
-void IntBinaryTree::destroySubTree(TreeNode* nodePtr) {
+void IntBinaryTree::destroySubTree(TreeNode* nodePtr)
+{
+    if (nodePtr)
+    {
 
-	if (nodePtr) {
+        if (nodePtr->left)
+            destroySubTree(nodePtr->left);
 
-		if (nodePtr->left)
-			destroySubTree(nodePtr->left);
+        if (nodePtr->right)
+            destroySubTree(nodePtr->right);
 
-		if (nodePtr->right)
-			destroySubTree(nodePtr->right);
-
-		delete nodePtr;
-	}
+        delete nodePtr;
+    }
 }
 
 //------------------------------------------------------------------------------
 // - determines if the passed value num is present in the tree
 // - returns true if found, false otherwise
 //------------------------------------------------------------------------------
-bool IntBinaryTree::searchNode(int num) {
+bool IntBinaryTree::searchNode(int num)
+{
+    TreeNode* nodePtr = root;
 
-	TreeNode* nodePtr = root;
+    while (nodePtr)
+    {
+        if (nodePtr->data == num)
+            return true;
 
-	while (nodePtr) {
+        if (num < nodePtr->data)
+            nodePtr = nodePtr->left;
+        else
+            nodePtr = nodePtr->right;
+    }
 
-		if (nodePtr->data == num)
-			return true;
-
-		if (num < nodePtr->data)
-			nodePtr = nodePtr->left;
-		else
-			nodePtr = nodePtr->right;
-	}
-
-	return false;
+    return false;
 }
 
 //------------------------------------------------------------------------------
 // - calls deleteNode to delete the node with value equal to num
 //------------------------------------------------------------------------------
-void IntBinaryTree::remove(int num) {
-	deleteNode(num, root);
+void IntBinaryTree::remove(int num)
+{
+    deleteNode(num, root);
 }
 
 //------------------------------------------------------------------------------
 // - deletes the node with value equal to num
 //------------------------------------------------------------------------------
-void IntBinaryTree::deleteNode(int num, TreeNode*& nodePtr) {
+void IntBinaryTree::deleteNode(int num, TreeNode*& nodePtr)
+{
+    if (num < nodePtr->data)
+        deleteNode(num, nodePtr->left);
 
-	if (num < nodePtr->data)
-		deleteNode(num, nodePtr->left);
+    else if (num > nodePtr->data)
+        deleteNode(num, nodePtr->right);
 
-	else if (num > nodePtr->data)
-		deleteNode(num, nodePtr->right);
-
-	else
-		makeDeletion(nodePtr);
+    else
+        makeDeletion(nodePtr);
 }
 
 //------------------------------------------------------------------------------
@@ -109,82 +111,87 @@ void IntBinaryTree::deleteNode(int num, TreeNode*& nodePtr) {
 // - removes the node
 // - reattaches the branches of the tree below the deleted node
 //------------------------------------------------------------------------------
-void IntBinaryTree::makeDeletion(TreeNode*& nodePtr) {
+void IntBinaryTree::makeDeletion(TreeNode*& nodePtr)
+{
+    // Define a temporary pointer to use in reattaching
+    // the left subtree.
+    TreeNode* tempNodePtr = nullptr;
 
-	// Define a temporary pointer to use in reattaching
-	// the left subtree.
-	TreeNode* tempNodePtr = nullptr;
+    if (nodePtr == nullptr)
+        std::cout << "Cannot delete empty node.\n";
 
-	if (nodePtr == nullptr)
-		cout << "Cannot delete empty node.\n";
+    else if (nodePtr->right == nullptr) \
+    {
+        tempNodePtr = nodePtr;
+        nodePtr = nodePtr->left;   // Reattach the left child
+        delete tempNodePtr;
+    }
 
-	else if (nodePtr->right == nullptr) {
-		tempNodePtr = nodePtr;
-		nodePtr = nodePtr->left;   // Reattach the left child
-		delete tempNodePtr;
-	}
+    else if (nodePtr->left == nullptr)
+    {
+        tempNodePtr = nodePtr;
+        nodePtr = nodePtr->right;  // Reattach the right child
+        delete tempNodePtr;
+    }
 
-	else if (nodePtr->left == nullptr) {
-		tempNodePtr = nodePtr;
-		nodePtr = nodePtr->right;  // Reattach the right child
-		delete tempNodePtr;
-	}
+    // If the node has two children.
+    else
+    {
+        // Move one node the right.
+        tempNodePtr = nodePtr->right;
 
-	// If the node has two children.
-	else {
-		// Move one node the right.
-		tempNodePtr = nodePtr->right;
+        // Go to the end left node.
+        while (tempNodePtr->left)
+            tempNodePtr = tempNodePtr->left;
 
-		// Go to the end left node.
-		while (tempNodePtr->left) {
-			tempNodePtr = tempNodePtr->left;
-		}
+        // Reattach the left subtree.
+        tempNodePtr->left = nodePtr->left;
+        tempNodePtr = nodePtr;
 
-		// Reattach the left subtree.
-		tempNodePtr->left = nodePtr->left;
-		tempNodePtr = nodePtr;
-
-		// Reattach the right subtree.
-		nodePtr = nodePtr->right;
-		delete tempNodePtr;
-	}
+        // Reattach the right subtree.
+        nodePtr = nodePtr->right;
+        delete tempNodePtr;
+    }
 }
 
 //------------------------------------------------------------------------------
 // - displays node values in the subtree pointed to by nodePtr
 // - via inorder traversal
 //------------------------------------------------------------------------------
-void IntBinaryTree::displayInOrder(TreeNode* nodePtr) const {
-
-	if (nodePtr) {
-		displayInOrder(nodePtr->left);
-		cout << nodePtr->data << '\n';
-		displayInOrder(nodePtr->right);
-	}
+void IntBinaryTree::displayInOrder(TreeNode* nodePtr) const
+{
+    if (nodePtr)
+    {
+        displayInOrder(nodePtr->left);
+        std::cout << nodePtr->data << '\n';
+        displayInOrder(nodePtr->right);
+    }
 }
 
 //------------------------------------------------------------------------------
 // - displays node values in the subtree pointed to by nodePtr
 // - via preorder traversal
 //------------------------------------------------------------------------------
-void IntBinaryTree::displayPreOrder(TreeNode* nodePtr) const {
-
-	if (nodePtr) {
-		cout << nodePtr->data << '\n';
-		displayPreOrder(nodePtr->left);
-		displayPreOrder(nodePtr->right);
-	}
+void IntBinaryTree::displayPreOrder(TreeNode* nodePtr) const
+{
+    if (nodePtr)
+    {
+        std::cout << nodePtr->data << '\n';
+        displayPreOrder(nodePtr->left);
+        displayPreOrder(nodePtr->right);
+    }
 }
 
 //------------------------------------------------------------------------------
 // - displays node values in the subtree pointed to by nodePtr
 // - via postorder traversal
 //------------------------------------------------------------------------------
-void IntBinaryTree::displayPostOrder(TreeNode* nodePtr) const {
-
-	if (nodePtr) {
-		displayPostOrder(nodePtr->left);
-		displayPostOrder(nodePtr->right);
-		cout << nodePtr->data << '\n';
-	}
+void IntBinaryTree::displayPostOrder(TreeNode* nodePtr) const
+{
+    if (nodePtr)
+    {
+        displayPostOrder(nodePtr->left);
+        displayPostOrder(nodePtr->right);
+        std::cout << nodePtr->data << '\n';
+    }
 }

@@ -9,33 +9,34 @@
 #include "IntBinaryTree.h"
 
 #include <iostream>
-using std::cout;
 
 //------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
-int main() {
-	//int nodeValues[] = { 4, 2, 6 };
-	int nodeValues[] = { 4, 2, 6, 5 };
+int main()
+{
+    //int nodeValues[] = { 4, 2, 6 };
+    int nodeValues[] = { 4, 2, 6, 5 };
 
-	IntBinaryTree tree;
+    IntBinaryTree tree;
 
-	for (int data : nodeValues) {
-		cout << "Inserting node with data " << data << '\n';
-		tree.insertNode(data);
-	}
+    for (int data : nodeValues)
+    {
+        std::cout << "Inserting node with data " << data << '\n';
+        tree.insertNode(data);
+    }
 
-	// Display inorder.
-	cout << "\nInorder traversal:\n";
-	tree.displayInOrder();
+    // Display inorder.
+    std::cout << "\nInorder traversal:\n";
+    tree.displayInOrder();
 
-	// Display preorder.
-	cout << "\nPreorder traversal:\n";
-	tree.displayPreOrder();
+    // Display preorder.
+    std::cout << "\nPreorder traversal:\n";
+    tree.displayPreOrder();
 
-	// Display postorder.
-	cout << "\nPostorder traversal:\n";
-	tree.displayPostOrder();
+    // Display postorder.
+    std::cout << "\nPostorder traversal:\n";
+    tree.displayPostOrder();
 
-	return 0;
+    return 0;
 }
