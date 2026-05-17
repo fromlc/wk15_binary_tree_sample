@@ -91,22 +91,22 @@ bool IntBinaryTree::searchNode(int value)
 }
 
 //------------------------------------------------------------------------------
-// calls deleteNode to delete the node with passed data value
+// calls private _deleteNode to delete the node with passed data value
 //------------------------------------------------------------------------------
 void IntBinaryTree::remove(int value) { _deleteNode(value, pRoot); }
 
 //------------------------------------------------------------------------------
-// displays nodes in inorder
+// calls private _displayInOrder to display nodes in inorder
 //------------------------------------------------------------------------------
 void IntBinaryTree::displayInOrder() const { _displayInOrder(pRoot); }
 
 //------------------------------------------------------------------------------
-// displays nodes in preorder
+// calls private _displayPreOrder to display nodes in preorder
 //------------------------------------------------------------------------------
 void IntBinaryTree::displayPreOrder() const { _displayPreOrder(pRoot); }
 
 //------------------------------------------------------------------------------
-// displays nodes in postorder
+// calls private _displayPostOrder to display nodes in postorder
 //------------------------------------------------------------------------------
 void IntBinaryTree::displayPostOrder() const { _displayPostOrder(pRoot); }
 
