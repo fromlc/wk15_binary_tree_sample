@@ -22,7 +22,7 @@ IntBinaryTree::~IntBinaryTree() { _destroySubTree(pRoot); }
 //------------------------------------------------------------------------------
 void IntBinaryTree::_rInsert(TreeNode*& pNode, TreeNode*& pNewNode)
 {
-    if (pNode == nullptr)
+    if (!pNode)
         pNode = pNewNode;                  // Insert the node.
 
     else if (pNewNode->data < pNode->data)
@@ -136,17 +136,17 @@ void IntBinaryTree::_makeDeletion(TreeNode*& pNode)
     // the left subtree.
     TreeNode* pTemp = nullptr;
 
-    if (pNode == nullptr)
+    if (!pNode)
         std::cout << "Cannot delete empty node.\n";
 
-    else if (pNode->pRight == nullptr) \
+    else if (!pNode->pRight)
     {
         pTemp = pNode;
         pNode = pNode->pLeft;   // Reattach the left child
         delete pTemp;
     }
 
-    else if (pNode->pLeft == nullptr)
+    else if (!pNode->pLeft)
     {
         pTemp = pNode;
         pNode = pNode->pRight;  // Reattach the right child
