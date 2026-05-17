@@ -2,6 +2,7 @@
 // IntBinaryTree.h : class declaration
 // 
 // Author: Gaddis 9E Ch.21
+// Modified by: Prof. Linda C
 //------------------------------------------------------------------------------
 #pragma once
 
@@ -13,52 +14,36 @@ class IntBinaryTree
 private:
     struct TreeNode
     {
-        int data;          // The value in the node
-        TreeNode* left;    // Pointer to left child node
-        TreeNode* right;   // Pointer to right child node
+        int data;           // The value in the node
+        TreeNode* pLeft;    // Pointer to left child node
+        TreeNode* pRight;   // Pointer to right child node
     };
 
-    TreeNode* root;       // Pointer to the root node
+    TreeNode* pRoot;        // Pointer to the root node
 
     // Private member functions
-    void insert(TreeNode*&, TreeNode*&);
-    void destroySubTree(TreeNode*);
-    void deleteNode(int, TreeNode*&);
-    void makeDeletion(TreeNode*&);
-    void displayInOrder(TreeNode*) const;
-    void displayPreOrder(TreeNode*) const;
-    void displayPostOrder(TreeNode*) const;
+    void _rInsert(TreeNode*& pNode, TreeNode*& pNewNode);
+    void _destroySubTree(TreeNode* pNode);
+    void _deleteNode(int value, TreeNode*& pNode);
+    void _makeDeletion(TreeNode*& pNode);
+    void _displayInOrder(TreeNode* pNode) const;
+    void _displayPreOrder(TreeNode* pNode) const;
+    void _displayPostOrder(TreeNode* pNode) const;
 
 public:
-   // Constructor
-    IntBinaryTree()
-    {
-        root = nullptr;
-    }
+    // constructor
+    IntBinaryTree();
 
-// Destructor
-    ~IntBinaryTree()
-    {
-        destroySubTree(root);
-    }
+    // destructor
+    ~IntBinaryTree();
 
-// Binary tree operations
-    void insertNode(int);
-    bool searchNode(int);
-    void remove(int);
+    // binary tree operations
+    void insertNode(int value);
+    bool searchNode(int value);
+    void remove(int value);
 
-    void displayInOrder() const
-    {
-        displayInOrder(root);
-    }
-
-    void displayPreOrder() const
-    {
-        displayPreOrder(root);
-    }
-
-    void displayPostOrder() const
-    {
-        displayPostOrder(root);
-    }
+    // display in inorder, preorder and postorder
+    void displayInOrder() const;
+    void displayPreOrder() const;
+    void displayPostOrder() const;
 };
