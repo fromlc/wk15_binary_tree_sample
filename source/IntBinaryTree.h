@@ -35,16 +35,17 @@ public:
 
     // binary tree operations
     void insertNode(int value);
+    // iterative search
     bool searchNode(int value);
+    // recursive search
+    bool rSearchNode(int value);
+
     void remove(int value);
 
-    // display in inorder, preorder and postorder
+    // display node values in inorder, preorder and postorder
     void displayInOrder() const;
     void displayPreOrder() const;
     void displayPostOrder() const;
-
-    // recursive search
-    bool rSearchValue(int value);
 
 private:
     void _rInsert(TreeNode*& pNode, TreeNode*& pNewNode);
@@ -55,5 +56,5 @@ private:
     void _displayPreOrder(TreeNode* pNode) const;
     void _displayPostOrder(TreeNode* pNode) const;
 
-    bool _rSearchValue(int value, TreeNode* pRoot);
+    bool _rSearchNode(int value, TreeNode* pRoot);
 };

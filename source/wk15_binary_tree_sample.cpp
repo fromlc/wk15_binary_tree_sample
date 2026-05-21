@@ -49,7 +49,7 @@ int main()
         if (!value)
             break;
 
-        if (tree.rSearchValue(value))
+        if (tree.rSearchNode(value))
             std::cout << "Found " << value << " in the tree.\n";
         else
             std::cout << "Did not find " << value << " in the tree.\n";
