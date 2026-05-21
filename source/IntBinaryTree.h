@@ -7,17 +7,21 @@
 #pragma once
 
 //------------------------------------------------------------------------------
+// TreeNode structure: defines the nodes in a binary tree
+//------------------------------------------------------------------------------
+struct TreeNode
+{
+    int data;           // The value in the node
+    TreeNode* pLeft;    // Pointer to left child node
+    TreeNode* pRight;   // Pointer to right child node
+};
+
+//------------------------------------------------------------------------------
 // IntBinaryTree
 //------------------------------------------------------------------------------
 class IntBinaryTree
 {
 private:
-    struct TreeNode
-    {
-        int data;           // The value in the node
-        TreeNode* pLeft;    // Pointer to left child node
-        TreeNode* pRight;   // Pointer to right child node
-    };
 
     TreeNode* pRoot;        // Pointer to the root node
 
