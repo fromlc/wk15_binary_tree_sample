@@ -26,15 +26,6 @@ class IntBinaryTree
 private:
     TreeNode* pRoot;        // Pointer to the root node
 
-    // Private member functions
-    void _rInsert(TreeNode*& pNode, TreeNode*& pNewNode);
-    void _destroySubTree(TreeNode* pNode);
-    void _deleteNode(int value, TreeNode*& pNode);
-    void _makeDeletion(TreeNode*& pNode);
-    void _displayInOrder(TreeNode* pNode) const;
-    void _displayPreOrder(TreeNode* pNode) const;
-    void _displayPostOrder(TreeNode* pNode) const;
-
 public:
     // constructor
     IntBinaryTree();
@@ -56,5 +47,13 @@ public:
     bool rSearchValue(int value);
 
 private:
+    void _rInsert(TreeNode*& pNode, TreeNode*& pNewNode);
+    void _destroySubTree(TreeNode* pNode);
+    void _deleteNode(int value, TreeNode*& pNode);
+    void _makeDeletion(TreeNode*& pNode);
+    void _displayInOrder(TreeNode* pNode) const;
+    void _displayPreOrder(TreeNode* pNode) const;
+    void _displayPostOrder(TreeNode* pNode) const;
+
     bool _rSearchValue(int value, TreeNode* pRoot);
 };
