@@ -14,6 +14,8 @@ struct TreeNode
     int data;           // The value in the node
     TreeNode* pLeft;    // Pointer to left child node
     TreeNode* pRight;   // Pointer to right child node
+
+    TreeNode() : data(0), pLeft(nullptr), pRight(nullptr) { }
 };
 
 //------------------------------------------------------------------------------
@@ -22,7 +24,6 @@ struct TreeNode
 class IntBinaryTree
 {
 private:
-
     TreeNode* pRoot;        // Pointer to the root node
 
     // Private member functions
@@ -50,4 +51,10 @@ public:
     void displayInOrder() const;
     void displayPreOrder() const;
     void displayPostOrder() const;
+
+    // recursive search
+    bool rSearchValue(int value);
+
+private:
+    bool _rSearchValue(int value, TreeNode* pRoot);
 };

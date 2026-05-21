@@ -38,5 +38,46 @@ int main()
     std::cout << "\nPostorder traversal:\n";
     tree.displayPostOrder();
 
+    // search for a value
+    while (true)
+    {
+        std::cout << "\nValue to search for (0 quits)? ";
+
+        int value;
+        std::cin >> value;
+
+        if (!value)
+            break;
+
+        if (tree.rSearchValue(value))
+            std::cout << "Found " << value << " in the tree.\n";
+        else
+            std::cout << "Did not find " << value << " in the tree.\n";
+    }
+
     return 0;
+}
+
+//------------------------------------------------------------------------------
+// recursive search for value in tree
+//------------------------------------------------------------------------------
+bool rSearchValue(int value, TreeNode* pTree)
+{
+    if (pTree->data == value)
+        return true;
+
+    if (value < pTree->data)
+    {
+        if (!pTree->pLeft)
+            return false;
+
+        return rSearchValue(value, pTree->pLeft);
+    }
+    else
+    {
+        if (!pTree->pRight)
+            return false;
+
+        return rSearchValue(value, pTree->pRight);
+    }
 }

@@ -218,3 +218,30 @@ void IntBinaryTree::_displayPostOrder(TreeNode* pNode) const
         std::cout << pNode->data << '\n';
     }
 }
+
+//------------------------------------------------------------------------------
+// public function calls private recursive search function
+// passes root pointer to private function by value
+//------------------------------------------------------------------------------
+bool IntBinaryTree::rSearchValue(int value)
+{
+    return _rSearchValue(value, pRoot);
+}
+
+//------------------------------------------------------------------------------
+// recursive search for TreeNode with the passed value
+// in the subtree pointed to by pNode
+//------------------------------------------------------------------------------
+bool IntBinaryTree::_rSearchValue(int value, TreeNode* pNode)
+{
+    if (!pNode)
+        return false;
+
+    if (pNode->data == value)
+        return true;
+
+    if (value < pNode->data)
+        return _rSearchValue(value, pNode->pLeft);
+    else
+        return _rSearchValue(value, pNode->pRight);
+}
